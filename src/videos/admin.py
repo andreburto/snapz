@@ -14,6 +14,11 @@ class ImageAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(models.Thumb)
+class ThumbAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(models.Person)
 class PeopleAdmin(admin.ModelAdmin):
     pass

@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <title>{{ video_title }}</title>
 </head>
-<body>
+<ul>
 <h1>{{ video_title }}</h1>
+<h3>Screencaps:</h3>
+{% for p in image_and_thumb_list %}
+<a href="/static/{{ base64_filename }}/{{ p.image }}" target="_blank">
+<img src="/static/{{ base64_filename }}/{{ p.thumb }}" alt="Image from {{ video_title }}">
+</a>
+{% endfor %}
+<h3>Starring:</h3>
+<ul>
+{% for p in starring_people %}
+<li>{{ p.first_name }} {{ p.last_name }}</li>
+{% endfor %}
+</ul>
 <hr>
 <p><a href="/videos/">Videos</a></p>
 </body>

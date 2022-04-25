@@ -16,7 +16,16 @@ class Image(models.Model):
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.image_name
+        return self.file_name
+    
+
+class Thumb(models.Model):
+    file_name = models.CharField(max_length=255)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.file_name
 
 
 class Person(models.Model):

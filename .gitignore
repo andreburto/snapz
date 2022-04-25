@@ -3,6 +3,8 @@ images/*
 thumbs/*
 videos/*
 
+src/static/*
+
 */*__pycache__*
 *.pyc
 *.pyo
