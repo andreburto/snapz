@@ -1,0 +1,9 @@
+data/*
+images/*
+thumbs/*
+videos/*
+
+*/*__pycache__*
+*.pyc
+*.pyo
+.env

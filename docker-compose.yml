@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  ffmpeg:
+    entrypoint: /app/bin/snapz.sh
+    env_file: ./.env
+    image: linuxserver/ffmpeg
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    working_dir: /app
+
+  imagemagick:
+    entrypoint: /app/bin/thumbz.sh
+    env_file: ./.env
+    image: dpokidov/imagemagick
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    working_dir: /app
+
+  pagez:
+    command: /app/bin/pagez.sh
+    env_file: ./.env
+    expose:
+      - 8000
+    image: python:3.9
+    ports:
+      - 8000:8000
+    volumes:
+      - type: bind
+        source: ./
+        target: /app
+    working_dir: /app
