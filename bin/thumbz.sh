@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 BASEDIR=$(pwd)
 IMAGEDIR="${BASEDIR}/images"
 THUMBDIR="${BASEDIR}/thumbs"

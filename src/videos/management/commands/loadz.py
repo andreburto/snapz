@@ -29,7 +29,11 @@ class Command(BaseCommand):
             base64_video = parts[-2]
             filename = parts[-1]
 
-            video_record = models.Video.objects.get(base64_filename=base64_video)
+            try:
+                video_record = models.Video.objects.get(base64_filename=base64_video)
+            except:
+                print(base64_video, filename)
+                continue
 
             parameters = {
                 "video": video_record,
