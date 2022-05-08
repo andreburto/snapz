@@ -1,11 +1,20 @@
+from django.contrib import admin
 from django.db import models
+from django.utils.html import format_html
+
 
 # Create your models here.
-
 class Video(models.Model):
     title = models.CharField(max_length=255)
     filename = models.CharField(max_length=255)
     base64_filename = models.TextField()
+
+
+    @admin.display()
+    def video_url(self):
+        return format_html(
+            '<a href="/videos/video/{}/" target="_blank">View page</a>',
+            self.id)
 
     def __str__(self):
         return self.filename
@@ -46,6 +55,12 @@ class VideoPeople(models.Model):
     video = models.ForeignKey(Video, on_delete=models.DO_NOTHING, blank=True, null=True)
     person = models.ForeignKey(Person, on_delete=models.DO_NOTHING, blank=True, null=True)
     role = models.CharField(max_length=10, choices=CHOICES)
+
+    @admin.display()
+    def video_url(self):
+        return format_html(
+            '<a href="/videos/video/{}/" target="_blank">View page</a>',
+            self.video.id)
 
     def __str__(self):
         return f"{self.video} with {self.person}"

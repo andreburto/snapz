@@ -1,0 +1,14 @@
+{% extends "videos/base.html" %}
+
+{% block title %}{{ first_name }} {{ last_name }}{% endblock %}
+
+{% block header %}{{ first_name }} {{ last_name }}{% endblock %}
+
+{% block content %}
+<h3>Videos:</h3>
+<ul>
+{% for v in video_list %}
+<li><a href="/videos/video/{{ v.id }}/">{{ v.title }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

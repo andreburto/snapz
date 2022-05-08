@@ -18,11 +18,13 @@ services:
     working_dir: /app
 
   pagez:
+    build:
+      context: .
+      dockerfile: Dockerfile.pagez
     command: /app/bin/pagez.sh
     env_file: ./.env
     expose:
       - 8000
-    image: python:3.9
     ports:
       - 8000:8000
     volumes:

@@ -1,0 +1,13 @@
+{% extends "videos/base.html" %}
+
+{% block title %}People{% endblock %}
+
+{% block header %}People{% endblock %}
+
+{% block content %}
+<ul>
+{% for p in people_list %}
+<li><a href="/videos/person/{{ p.id }}/">{{ p.last_name }}, {{ p.first_name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

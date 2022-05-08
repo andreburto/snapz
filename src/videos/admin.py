@@ -6,7 +6,7 @@ from . import models
 # Register your models here.
 @admin.register(models.Video)
 class VideoAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'video_url')
 
 
 @admin.register(models.Image)
@@ -26,7 +26,10 @@ class PeopleAdmin(admin.ModelAdmin):
 
 @admin.register(models.VideoPeople)
 class VideoPeopleAdmin(admin.ModelAdmin):
-    list_display = ('video_title', 'person_fullname', 'role', )
+    list_display = ('video_title', 'person_fullname', 'role', 'video_url')
+
+    @admin.display
+
 
     def video_title(self, instance):
         return instance.video
