@@ -13,6 +13,10 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
 ## Change Log
 
+**2022-05-07:** Added People and Person pages.
+Created Dockerfile to speed up starting the app.
+Generalized templates to reduce duplicate code.
+
 **2022-04-24:** Restarted project with Docker Compose and Django. 
 snapz will now extract screenshots, thumbnail them, and display a basic catalog with screencaps.
 
