@@ -5,13 +5,17 @@
 This is a Django+Docker+Bash project to help me catalog a collection of short videos.
 It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
-## TODO
+## To Do
 
 * Add height and width columns to Image and Thumb tables.
 * Use [Pillow](https://pillow.readthedocs.io/en/stable/) to auto-grab image dimensions.
-* Create permanent Dockerfile for the Django app.
 
 ## Change Log
+
+**2022-05-08:** Updated Image and Thumb tables by renaming `filename` field.
+Added thumbnail image to Person record.
+Cleaned up Docker settings.
+Set order to some admin forms.
 
 **2022-05-07:** Added People and Person pages.
 Created Dockerfile to speed up starting the app.

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pip install -r requirements.txt
+. /root/venv/bin/activate
 
-cd src
+cd /app/src
 
 python3 manage.py runserver 0.0.0.0:8000

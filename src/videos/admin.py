@@ -6,17 +6,20 @@ from . import models
 # Register your models here.
 @admin.register(models.Video)
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'video_url')
+    list_display = ('title', 'video_url', )
+    ordering = ('title', 'filename', )
+    readonly_fields = ('filename', 'base64_filename', )
 
 
 @admin.register(models.Image)
 class ImageAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ('filename', )
 
 
 @admin.register(models.Thumb)
 class ThumbAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('filename', 'show_thumbnail', )
+    readonly_fields = ('filename', )
 
 
 @admin.register(models.Person)
@@ -26,10 +29,7 @@ class PeopleAdmin(admin.ModelAdmin):
 
 @admin.register(models.VideoPeople)
 class VideoPeopleAdmin(admin.ModelAdmin):
-    list_display = ('video_title', 'person_fullname', 'role', 'video_url')
-
-    @admin.display
-
+    list_display = ('video_title', 'person_fullname', 'role', 'video_url', )
 
     def video_title(self, instance):
         return instance.video

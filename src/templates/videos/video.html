@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ video_title }}</title>
-</head>
-<ul>
-<h1>{{ video_title }}</h1>
+{% extends "videos/base.html" %}
+
+{% block title %}{{ video_title }}{% endblock %}
+
+{% block header %}{{ video_title }}{% endblock %}
+
+{% block content %}
+<p style="text-align: center"><a href="/admin/videos/video/{{ video_id }}/change/" target="_blank">Edit Video Record</a></p>
 <h3>Screencaps:</h3>
 {% for p in image_and_thumb_list %}
 <a href="/static/{{ base64_filename }}/{{ p.image }}" target="_blank">
@@ -18,7 +18,7 @@
 <li><a href="/videos/person/{{ p.id }}/">{{ p.last_name }}, {{ p.first_name }}</a></li>
 {% endfor %}
 </ul>
-<hr>
+{% endblock %}
 
 </body>
 </html>

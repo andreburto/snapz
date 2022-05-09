@@ -1,10 +1,9 @@
 FROM python:3.9
 
-WORKDIR /app/src
-
-COPY ./requirements.txt /app/requirements.txt
+COPY ./requirements.txt /tmp/requirements.txt
 
 RUN python -m venv /root/venv && \
     . /root/venv/bin/activate && \
     python -m ensurepip && \
-    python -m pip install -r /app/requirements.txt
+    python -m pip install --no-cache-dir -r /tmp/requirements.txt && \
+    rm -f /tmp/requiements.txt

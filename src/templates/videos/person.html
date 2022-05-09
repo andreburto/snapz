@@ -5,6 +5,12 @@
 {% block header %}{{ first_name }} {{ last_name }}{% endblock %}
 
 {% block content %}
+{% if thumb_url %}
+<p style="text-align: left">
+    <img src="{{ thumb_url }}" alt="{{ thumb_url }}" style="margin: auto; border: none">
+</p>
+{% endif %}
+<p style="text-align: center"><a href="/admin/videos/person/{{ person_id }}/change/" target="_blank">Edit Person Record</a></p>
 <h3>Videos:</h3>
 <ul>
 {% for v in video_list %}
