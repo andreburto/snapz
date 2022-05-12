@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.db import models
 from django.utils.html import format_html
 
+from linkz import models as linkz_models
+
 
 # Create your models here.
 class Video(models.Model):
@@ -12,12 +14,9 @@ class Video(models.Model):
     class Meta:
         ordering = ["title", "filename", ]
 
-
     @admin.display()
     def video_url(self):
-        return format_html(
-            '<a href="/videos/video/{}/" target="_blank">View page</a>',
-            self.id)
+        return format_html('<a href="/videos/video/{}/" target="_blank">View page</a>', self.id)
 
     def __str__(self):
         return self.title
@@ -59,21 +58,27 @@ class Person(models.Model):
 
 
 class VideoPeople(models.Model):
+    video = models.ForeignKey(Video, on_delete=models.DO_NOTHING, blank=True, null=True)
+    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING, blank=True, null=True)
     ACTOR = 'Actor'
     DIRECTOR = 'Director'
     CHOICES = [
         (ACTOR, ACTOR, ),
         (DIRECTOR, DIRECTOR, ),
     ]
-    video = models.ForeignKey(Video, on_delete=models.DO_NOTHING, blank=True, null=True)
-    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING, blank=True, null=True)
     role = models.CharField(max_length=10, choices=CHOICES)
 
     @admin.display()
     def video_url(self):
-        return format_html(
-            '<a href="/videos/video/{}/" target="_blank">View page</a>',
-            self.video.id)
+        return format_html('<a href="/videos/video/{}/" target="_blank">View page</a>', self.video.id)
 
     def __str__(self):
         return f"{self.video} with {self.person}"
+
+
+class LinkPeople(models.Model):
+    link = models.ForeignKey(linkz_models.Link, on_delete=models.DO_NOTHING, blank=True, null=True)
+    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.person} @ {self.link.link_type}"

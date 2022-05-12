@@ -6,19 +6,20 @@
 
 {% block content %}
 <p style="text-align: center"><a href="/admin/videos/video/{{ video_id }}/change/" target="_blank">Edit Video Record</a></p>
+<div style="float: left; width: 50%; margin: 0px; padding: 0px; left: 0px;">
 <h3>Screencaps:</h3>
 {% for p in image_and_thumb_list %}
 <a href="/static/{{ base64_filename }}/{{ p.image }}" target="_blank">
 <img src="/static/{{ base64_filename }}/{{ p.thumb }}" alt="Image from {{ video_title }}">
 </a>
 {% endfor %}
+</div>
+<div style="float: left; width: 50%; margin: 0px; padding: 0px; left: 0px;">
 <h3>Starring:</h3>
 <ul>
 {% for p in starring_people %}
 <li><a href="/videos/person/{{ p.id }}/">{{ p.last_name }}, {{ p.first_name }}</a></li>
 {% endfor %}
 </ul>
+</div>
 {% endblock %}
-
-</body>
-</html>

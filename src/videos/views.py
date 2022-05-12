@@ -1,3 +1,4 @@
+from django.db.models.functions import Lower
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
@@ -5,7 +6,7 @@ from . import models
 
 
 def videos(request):
-    video_list = models.Video.objects.all().order_by("title")
+    video_list = models.Video.objects.all().order_by(Lower("title"))
     return HttpResponse(render_to_string(
         "videos/videos.html",
         {
@@ -55,7 +56,10 @@ def people(request):
 def person(request, id):
     p = models.Person.objects.get(id=id)
     video_id_by_person = models.VideoPeople.objects.filter(person=p).values_list('video__id', flat=True)
-    videos_with_person = models.Video.objects.filter(id__in=video_id_by_person).order_by("title")
+    videos_with_person = models.Video.objects.filter(id__in=video_id_by_person).order_by(Lower("title"))
+    links_for_people = list(models.LinkPeople.objects.filter(person=p))
+
+    print(links_for_people)
 
     if getattr(p, 'thumb', None):
         thumb_url = f"/static/{p.thumb.video.base64_filename}/{p.thumb.filename}"
@@ -69,6 +73,7 @@ def person(request, id):
             "first_name": p.first_name,
             "last_name": p.last_name,
             "thumb_url": thumb_url,
+            "link_list": links_for_people,
             "video_list": videos_with_person,
         }
     ))

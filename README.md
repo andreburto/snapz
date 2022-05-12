@@ -12,6 +12,9 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
 ## Change Log
 
+**2022-05-11:** Added `linkz` app and all of its initial parts.
+Sort main video list without case sensitivity.
+
 **2022-05-08:** Updated Image and Thumb tables by renaming `filename` field.
 Added thumbnail image to Person record.
 Cleaned up Docker settings.

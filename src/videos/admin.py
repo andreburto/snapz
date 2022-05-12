@@ -3,6 +3,11 @@ from django.contrib import admin
 from . import models
 
 
+class FullnameMixin:
+    def person_fullname(self, instance):
+        return f"{instance.person.last_name}, {instance.person.first_name}"
+
+
 # Register your models here.
 @admin.register(models.Video)
 class VideoAdmin(admin.ModelAdmin):
@@ -28,11 +33,20 @@ class PeopleAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.VideoPeople)
-class VideoPeopleAdmin(admin.ModelAdmin):
+class VideoPeopleAdmin(admin.ModelAdmin, FullnameMixin):
     list_display = ('video_title', 'person_fullname', 'role', 'video_url', )
 
     def video_title(self, instance):
         return instance.video
 
-    def person_fullname(self, instance):
-        return f"{instance.person.last_name}, {instance.person.first_name}"
+
+
+@admin.register(models.LinkPeople)
+class LinkPeopleAdmin(admin.ModelAdmin, FullnameMixin):
+    list_display = ('edit_text', 'show_link', 'person_fullname', )
+
+    def edit_text(self, instance):
+        return "Edit"
+
+    def show_link(self, instance):
+        return instance.link.show_link()
