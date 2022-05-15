@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models.functions import Lower
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -46,10 +47,14 @@ def video(request, id):
 
 def people(request):
     people_list = models.Person.objects.all().order_by("last_name", "first_name")
+    people_table = []
+    for idx in range(0, len(people_list), settings.MAX_COLS_FOR_PEOPLE):
+        people_table.append(people_list[idx:idx+settings.MAX_COLS_FOR_PEOPLE])
+
     return HttpResponse(render_to_string(
         "videos/people.html",
         {
-            'people_list': people_list,
+            'people_table': people_table,
         }))
 
 
