@@ -40,7 +40,6 @@ class VideoPeopleAdmin(admin.ModelAdmin, FullnameMixin):
         return instance.video
 
 
-
 @admin.register(models.LinkPeople)
 class LinkPeopleAdmin(admin.ModelAdmin, FullnameMixin):
     list_display = ('edit_text', 'show_link', 'person_fullname', )
@@ -50,3 +49,18 @@ class LinkPeopleAdmin(admin.ModelAdmin, FullnameMixin):
 
     def show_link(self, instance):
         return instance.link.show_link()
+
+
+@admin.register(models.StudioName)
+class StudioNameAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(models.Studio)
+class StudioAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(models.StudioNameStudio)
+class StudioNameStudioAdmin(admin.ModelAdmin):
+    pass

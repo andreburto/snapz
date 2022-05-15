@@ -82,3 +82,34 @@ class LinkPeople(models.Model):
 
     def __str__(self):
         return f"{self.person} @ {self.link.link_type}"
+
+
+class StudioName(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Studio(models.Model):
+    studio_name = models.ForeignKey(StudioName, on_delete=models.DO_NOTHING)
+    description = models.TextField(max_length=1024, blank=True, null=True)
+    website = models.ForeignKey(linkz_models.Link, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.studio_name.name}"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        StudioNameStudio.objects.filter(studio_id=self.id).update(current=False)
+        StudioNameStudio.objects.update_or_create(studio_id=self.id, studio_name_id=self.studio_name.id)
+        StudioNameStudio.objects.filter(studio_id=self.id, studio_name_id=self.studio_name.id).update(current=True)
+
+
+class StudioNameStudio(models.Model):
+    studio_name = models.ForeignKey(StudioName, on_delete=models.DO_NOTHING)
+    studio = models.ForeignKey(Studio, on_delete=models.DO_NOTHING)
+    current = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.studio_name.name}"
