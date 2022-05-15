@@ -5,9 +5,24 @@
 {% block header %}People{% endblock %}
 
 {% block content %}
-<ul>
-{% for p in people_list %}
-<li><a href="/videos/person/{{ p.id }}/">{{ p.last_name }}, {{ p.first_name }}</a></li>
+<div style="width: 100%; text-align: center">
+<table style="margin: auto;">
+{% for r in people_table %}
+<tr>
+{% for c in r %}
+<td style="vertical-align: bottom; text-align: center;">
+<p>
+{% if c.thumb %}
+<a href="/videos/person/{{ c.id }}/">
+<img src="/static/{{ c.thumb.video.base64_filename }}/{{ c.thumb.filename }}" style="margin:auto; border: none;">
+</a><br>
+{% endif %}
+<a href="/videos/person/{{ c.id }}/">{{ c.first_name }} {{ c.last_name }}</a>
+</p>
+</td>
 {% endfor %}
-</ul>
+</tr>
+{% endfor %}
+</table>
+</div>
 {% endblock %}

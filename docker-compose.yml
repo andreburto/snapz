@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
   ffmpeg:
@@ -6,7 +6,9 @@ services:
     env_file: ./.env
     image: linuxserver/ffmpeg
     volumes:
-      - ./:/app
+      - type: bind
+        source: ./
+        target: /app
     working_dir: /app
 
   imagemagick:
@@ -14,7 +16,9 @@ services:
     env_file: ./.env
     image: dpokidov/imagemagick
     volumes:
-      - ./:/app
+      - type: bind
+        source: ./
+        target: /app
     working_dir: /app
 
   pagez:
@@ -28,5 +32,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./:/app
+      - type: bind
+        source: ./
+        target: /app
     working_dir: /app
