@@ -9,8 +9,15 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
 * Add height and width columns to Image and Thumb tables.
 * Use [Pillow](https://pillow.readthedocs.io/en/stable/) to auto-grab image dimensions.
+* Tags field for videos.
+* Index tables better.
 
 ## Change Log
+
+**2022-05-18:** Added Studio tables.
+The save logic still needs some work.
+Added description field to videos.
+Tinkered with the people display page.
 
 **2022-05-11:** Added `linkz` app and all of its initial parts.
 Sort main video list without case sensitivity.

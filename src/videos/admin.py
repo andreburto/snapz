@@ -3,7 +3,7 @@ from django.contrib import admin
 from . import models
 
 
-class FullnameMixin:
+class FullnameMixin(admin.ModelAdmin):
     def person_fullname(self, instance):
         return f"{instance.person.last_name}, {instance.person.first_name}"
 
@@ -12,7 +12,8 @@ class FullnameMixin:
 @admin.register(models.Video)
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('title', 'video_url', )
-    ordering = ('title', 'filename', )
+    fields = ['title', 'description', 'studio', 'filename', 'base64_filename']
+    ordering = ('title', 'filename',)
     readonly_fields = ('filename', 'base64_filename', )
 
 
@@ -33,7 +34,7 @@ class PeopleAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.VideoPeople)
-class VideoPeopleAdmin(admin.ModelAdmin, FullnameMixin):
+class VideoPeopleAdmin(FullnameMixin):
     list_display = ('video_title', 'person_fullname', 'role', 'video_url', )
 
     def video_title(self, instance):
@@ -41,7 +42,7 @@ class VideoPeopleAdmin(admin.ModelAdmin, FullnameMixin):
 
 
 @admin.register(models.LinkPeople)
-class LinkPeopleAdmin(admin.ModelAdmin, FullnameMixin):
+class LinkPeopleAdmin(FullnameMixin):
     list_display = ('edit_text', 'show_link', 'person_fullname', )
 
     def edit_text(self, instance):

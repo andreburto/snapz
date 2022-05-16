@@ -3,10 +3,16 @@ from django.db import models
 from django.utils.html import format_html
 
 
-# Create your models here.
-class LinkType(models.Model):
-    link_type = models.CharField(max_length=100, blank=False, null=False)
+class DescriptionMixin(models.Model):
     description = models.TextField(max_length=1024, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+
+# Create your models here.
+class LinkType(DescriptionMixin):
+    link_type = models.CharField(max_length=100, blank=False, null=False)
 
     def __str__(self):
         return self.link_type

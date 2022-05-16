@@ -6,10 +6,11 @@ from linkz import models as linkz_models
 
 
 # Create your models here.
-class Video(models.Model):
+class Video(linkz_models.DescriptionMixin):
     title = models.CharField(max_length=255)
     filename = models.CharField(max_length=255)
     base64_filename = models.TextField()
+    studio = models.ForeignKey("Studio", on_delete=models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         ordering = ["title", "filename", ]
