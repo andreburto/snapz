@@ -51,11 +51,7 @@ def people(request):
     for idx in range(0, len(people_list), settings.MAX_COLS_FOR_PEOPLE):
         people_table.append(people_list[idx:idx+settings.MAX_COLS_FOR_PEOPLE])
 
-    return HttpResponse(render_to_string(
-        "videos/people.html",
-        {
-            'people_table': people_table,
-        }))
+    return HttpResponse(render_to_string("videos/people.html", {'people_table': people_table, }))
 
 
 def person(request, id):

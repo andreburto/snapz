@@ -11,10 +11,14 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 * Use [Pillow](https://pillow.readthedocs.io/en/stable/) to auto-grab image dimensions.
 * Tags field for videos.
 * Index tables better.
+* Uploading files.
 
 ## Change Log
 
-**2022-05-18:** Added Studio tables.
+**2022-05-16:** Fixed previous date.
+Started working with uploading files.
+
+**2022-05-15:** Added Studio tables.
 The save logic still needs some work.
 Added description field to videos.
 Tinkered with the people display page.

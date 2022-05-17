@@ -1,6 +1,7 @@
 data/*
 images/*
 thumbs/*
+uploads/*
 videos/*
 
 src/static/*
