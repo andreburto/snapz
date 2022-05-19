@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.html import format_html
 
 from linkz import models as linkz_models
+from tags import models as tags_models
 
 
 # Create your models here.
@@ -13,6 +14,10 @@ class Video(linkz_models.DescriptionMixin):
     studio = models.ForeignKey("Studio", on_delete=models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
+        indexes = [
+            models.Index(fields=['title', ]),
+            models.Index(fields=['filename', ]),
+        ]
         ordering = ["title", "filename", ]
 
     @admin.display()
@@ -27,6 +32,12 @@ class Image(models.Model):
     filename = models.CharField(max_length=255)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['video', ]),
+        ]
+        ordering = ["video__title", "filename", ]
+
     def __str__(self):
         return self.filename
     
@@ -35,6 +46,12 @@ class Thumb(models.Model):
     filename = models.CharField(max_length=255)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['video', ]),
+        ]
+        ordering = ["video__title", "filename", ]
 
     @admin.display()
     def show_thumbnail(self):
@@ -114,3 +131,16 @@ class StudioNameStudio(models.Model):
 
     def __str__(self):
         return f"{self.studio_name.name}"
+
+
+class VideoTag(models.Model):
+    tag = models.ForeignKey(tags_models.Tag, on_delete=models.DO_NOTHING, unique=True)
+    video = models.ForeignKey(Video, on_delete=models.DO_NOTHING, unique=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['tag', ]),
+            models.Index(fields=['video', ]),
+            models.Index(fields=['tag', 'video', ]),
+        ]
+        ordering = ['video', 'tag', ]

@@ -15,6 +15,9 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
 ## Change Log
 
+**2022-05-19:** Added a few indexes to tables.
+Created Tags and Tools apps.
+
 **2022-05-16:** Fixed previous date.
 Started working with uploading files.
 

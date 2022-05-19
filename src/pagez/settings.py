@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pagez',
+    'tags',
     'linkz',
-    'videos'
+    'videos',
+    'tools',
 ]
 
 MIDDLEWARE = [
