@@ -2,7 +2,7 @@
 
 {% block title %}{{ video_title }}{% endblock %}
 
-{% block header %}{{ video_title }}{% endblock %}
+{% block header %}{{ video_title }} ({{ video_filename }}){% endblock %}
 
 {% block content %}
 <p style="text-align: center"><a href="/admin/videos/video/{{ video_id }}/change/" target="_blank">Edit Video Record</a></p>

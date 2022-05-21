@@ -39,6 +39,7 @@ def video(request, id):
         {
             'video_id': select_video.id,
             'video_title': select_video.title,
+            'video_filename': select_video.filename,
             'base64_filename': select_video.base64_filename,
             'image_and_thumb_list': image_and_thumb_list,
             'starring_people': starring_people,
