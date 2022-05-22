@@ -12,11 +12,11 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
   * Add tags to people.
   * Clone RDB (SQLite) to NoSQL (DynamoBD) for backups.
 * **Media management**
-  * Add height and width columns to Image and Thumb tables.
   * Use [Pillow](https://pillow.readthedocs.io/en/stable/) to auto-grab image dimensions.
+  * Add height and width columns to Image and Thumb tables.
   * Uploading files.
 * **UI improvements**
-  * Create "Video2" app for JSON output via DRF.
+  * Create "Video2" app for JSON output via [DRF](https://www.django-rest-framework.org/).
   * Create tag cloud.
 * **Infrastructure**
   * Add linter and tests.
