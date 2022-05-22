@@ -7,13 +7,27 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
 ## To Do
 
-* Add height and width columns to Image and Thumb tables.
-* Use [Pillow](https://pillow.readthedocs.io/en/stable/) to auto-grab image dimensions.
-* Tags field for videos.
-* Index tables better.
-* Uploading files.
+* **Data management**
+  * General search system.
+  * Add tags to people.
+  * Clone RDB (SQLite) to NoSQL (DynamoBD) for backups.
+* **Media management**
+  * Add height and width columns to Image and Thumb tables.
+  * Use [Pillow](https://pillow.readthedocs.io/en/stable/) to auto-grab image dimensions.
+  * Uploading files.
+* **UI improvements**
+  * Create "Video2" app for JSON output via DRF.
+  * Create tag cloud.
+* **Infrastructure**
+  * Add linter and tests.
+  * Startup scripts for Windows and Mac.
+
 
 ## Change Log
+
+**2022-05-22:** Added InLine field on Video admin page for editing Tags.
+Added tags to video page, and created page to show videos by tag.
+Improved To Do list above.
 
 **2022-05-19:** Added a few indexes to tables.
 Created Tags and Tools apps.

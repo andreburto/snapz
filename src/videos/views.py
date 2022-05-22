@@ -3,6 +3,7 @@ from django.db.models.functions import Lower
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
+from tags import models as tag_models
 from . import models
 
 
@@ -21,6 +22,7 @@ def video(request, id):
     video_thumb_qs = models.Thumb.objects.filter(video=select_video)
     starring_people = models.Person.objects.filter(
         id__in=models.VideoPeople.objects.filter(video=select_video).values_list('person__id', flat=True))
+    tags_for_video = models.VideoTag.objects.filter(video=select_video).order_by('tag__slug')
 
     # Images are named as numbers plus extensions (1.png), so cannot be easily sorted with the ORM.
     # This will sort them by transforming the file name into an integer.
@@ -43,6 +45,7 @@ def video(request, id):
             'base64_filename': select_video.base64_filename,
             'image_and_thumb_list': image_and_thumb_list,
             'starring_people': starring_people,
+            'tags_for_video': list(tags_for_video),
         }))
 
 
@@ -77,5 +80,19 @@ def person(request, id):
             "thumb_url": thumb_url,
             "link_list": links_for_people,
             "video_list": videos_with_person,
-        }
-    ))
+        }))
+
+
+def video_by_tag(request, slug):
+    tag = tag_models.Tag.objects.filter(slug=slug).first()
+    videos_with_tag = models.Video.objects.filter(
+        id__in=models.VideoTag.objects.filter(tag=tag).values_list("video__id")).order_by("title")
+
+    print(videos_with_tag)
+
+    return HttpResponse(render_to_string(
+        "videos/videos_by_tag.html",
+        {
+            "tag": tag,
+            "video_list": videos_with_tag,
+        }))

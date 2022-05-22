@@ -8,11 +8,17 @@ class FullnameMixin(admin.ModelAdmin):
         return f"{instance.person.last_name}, {instance.person.first_name}"
 
 
-# Register your models here.
+class TagInline(admin.TabularInline):
+    model = models.VideoTag
+    fk_name = "video"
+    extra = 0
+
+
 @admin.register(models.Video)
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'video_url', )
     fields = ['title', 'description', 'studio', 'filename', 'base64_filename', ]
+    inlines = [TagInline, ]
+    list_display = ('title', 'video_url', )
     ordering = ('title', 'filename', )
     readonly_fields = ('filename', 'base64_filename', )
 

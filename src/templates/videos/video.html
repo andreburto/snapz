@@ -1,4 +1,4 @@
-{% extends "videos/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}{{ video_title }}{% endblock %}
 
@@ -21,5 +21,13 @@
 <li><a href="/videos/person/{{ p.id }}/">{{ p.last_name }}, {{ p.first_name }}</a></li>
 {% endfor %}
 </ul>
+{% if tags_for_video %}
+<h3>Tags:</h3>
+<ul>
+{% for t in tags_for_video %}
+<li><a href="/videos/tag/{{ t.tag.slug }}">{{ t.tag.text }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
 </div>
 {% endblock %}

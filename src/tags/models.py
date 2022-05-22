@@ -14,6 +14,11 @@ class Tag(models.Model):
         ]
         ordering = ["text" ,]
 
+    def __str__(self):
+        return self.text
+
     def save(self, *args, **kwargs):
-        self.slug = self.text.replace(" ", "-").lower()
+        if not self.slug:
+            self.text = f"{str(self.text[0]).upper()}{self.text[1:]}"
+            self.slug = str(self.text).replace(" ", "-").lower()
         super().save(*args, **kwargs)

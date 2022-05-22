@@ -134,8 +134,8 @@ class StudioNameStudio(models.Model):
 
 
 class VideoTag(models.Model):
-    tag = models.ForeignKey(tags_models.Tag, on_delete=models.DO_NOTHING, unique=True)
-    video = models.ForeignKey(Video, on_delete=models.DO_NOTHING, unique=True)
+    tag = models.ForeignKey(tags_models.Tag, on_delete=models.DO_NOTHING)
+    video = models.ForeignKey(Video, on_delete=models.DO_NOTHING)
 
     class Meta:
         indexes = [

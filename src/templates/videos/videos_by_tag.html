@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Videos with tag "{{ tag.text }}"{% endblock %}
+
+{% block header %}Videos with tag "{{ tag.text }}"{% endblock %}
+
+{% block content %}
+{% if video_list %}
+<ul>
+{% for v in video_list %}
+<li><a href="/videos/video/{{ v.id }}/">{{ v.title }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No videos with "{{ tag.text }}" in them.</p>
+{% endif %}
+{% endblock %}
