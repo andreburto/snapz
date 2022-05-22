@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from . import models
 
@@ -23,16 +24,28 @@ class VideoAdmin(admin.ModelAdmin):
     readonly_fields = ('filename', 'base64_filename', )
 
 
+class ShowThumbnailAdmin(admin.ModelAdmin):
+    fields = ['show_thumbnail', 'filename', 'video', ]
+    list_display = ('filename', 'video', 'show_thumbnail', )
+    ordering = ('video', 'filename', )
+    readonly_fields = ('filename', 'show_thumbnail', )
+
+    def show_thumbnail(self, instance):
+        thumbnail_file = instance.filename if instance.filename.startswith("th_") else f"th_{instance.filename}"
+        image_file = instance.filename.replace("th_", "")
+        return format_html(
+            '<a href="/static/{0}/{1}" target="_blank"><img src="/static/{0}/{2}" alt="{3}" style="border: none;"><a>',
+            instance.video.base64_filename, image_file, thumbnail_file, instance.video.title)
+
+
 @admin.register(models.Image)
-class ImageAdmin(admin.ModelAdmin):
-    list_display = ('filename', 'video', )
-    readonly_fields = ('filename', )
+class ImageAdmin(ShowThumbnailAdmin):
+    pass
 
 
 @admin.register(models.Thumb)
-class ThumbAdmin(admin.ModelAdmin):
-    list_display = ('filename', 'video', 'show_thumbnail', )
-    readonly_fields = ('filename', )
+class ThumbAdmin(ShowThumbnailAdmin):
+    pass
 
 
 @admin.register(models.Person)

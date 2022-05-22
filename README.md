@@ -25,7 +25,9 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
 ## Change Log
 
-**2022-05-22:** Added InLine field on Video admin page for editing Tags.
+**2022-02-22:** Added thumbnails to the Image admin page using a base ShowThumnbailAdmin class.
+
+**2022-05-21:** Added InLine field on Video admin page for editing Tags.
 Added tags to video page, and created page to show videos by tag.
 Improved To Do list above.
 

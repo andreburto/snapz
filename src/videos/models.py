@@ -53,12 +53,6 @@ class Thumb(models.Model):
         ]
         ordering = ["video__title", "filename", ]
 
-    @admin.display()
-    def show_thumbnail(self):
-        return format_html(
-            '<img src="/static/{}/{}" alt="{}">',
-            self.video.base64_filename, self.filename, self.video.title)
-
     def __str__(self):
         return f"{self.video.title} - {self.filename}"
 
