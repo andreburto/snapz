@@ -28,30 +28,30 @@ class Video(linkz_models.DescriptionMixin):
         return self.title
 
 
-class Image(models.Model):
+class ImageModelMixin(models.Model):
     filename = models.CharField(max_length=255)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
     class Meta:
+        abstract = True
         indexes = [
             models.Index(fields=['video', ]),
         ]
         ordering = ["video__title", "filename", ]
+
+    @property
+    def filename_number(self):
+        return self.filename.replace("th_", "").split(".")[0]
+
+
+class Image(ImageModelMixin):
 
     def __str__(self):
         return self.filename
     
 
-class Thumb(models.Model):
-    filename = models.CharField(max_length=255)
-    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+class Thumb(ImageModelMixin):
     image = models.ForeignKey(Image, on_delete=models.CASCADE)
-
-    class Meta:
-        indexes = [
-            models.Index(fields=['video', ]),
-        ]
-        ordering = ["video__title", "filename", ]
 
     def __str__(self):
         return f"{self.video.title} - {self.filename}"

@@ -16,7 +16,7 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
   * Add height and width columns to Image and Thumb tables.
   * Uploading files.
 * **UI improvements**
-  * Create "Video2" app for JSON output via [DRF](https://www.django-rest-framework.org/).
+  * JSON endpoints with [DRF](https://www.django-rest-framework.org/).
   * Create tag cloud.
 * **Infrastructure**
   * Add linter and tests.
@@ -25,7 +25,10 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
 ## Change Log
 
-**2022-02-22:** Added thumbnails to the Image admin page using a base ShowThumnbailAdmin class.
+**2022-05-23:** Added Api app and created a few JSON endpoints.
+Need to find a better method than handcrafted JSON.
+
+**2022-05-22:** Added thumbnails to the Image admin page using a base ShowThumnbailAdmin class.
 
 **2022-05-21:** Added InLine field on Video admin page for editing Tags.
 Added tags to video page, and created page to show videos by tag.
