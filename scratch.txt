@@ -1,0 +1,11 @@
+echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+
+for d in $(ls -l | grep '^d' | sed 's+/++' | awk '{print $NF}'); do if [[ "$(ls -1 "./$d" | wc -l)" -eq "0" ]]; then echo "$(cat video_log.txt | grep ${d})"; fi ; done | sort | uniq
+
+from videos.models import Video
+with open("/app/data/video_success_log.txt") as fh:
+    for i in fh.readlines():
+        f, b = i.split("|")
+        b = b.replace("\n", "")
+        v = Video.objects.create(title=f, filename=f, base64_filename=b)
+        v.save()

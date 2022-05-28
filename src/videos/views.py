@@ -33,8 +33,7 @@ def video(request, id):
             }
             for i in list(video_image_qs)
         ],
-        key=lambda image: int(image["image"].split(".")[0])
-    )
+        key=lambda image: int(image["image"].split(".")[0]))
 
     return HttpResponse(render_to_string(
         "videos/video.html",
