@@ -1,3 +1,4 @@
+#!/bin/bash
 BASEDIR=$(pwd)
 IMAGEDIR="${BASEDIR}/images"
 THUMBDIR="${BASEDIR}/thumbs"

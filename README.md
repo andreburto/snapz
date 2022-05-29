@@ -5,12 +5,47 @@
 This is a Django+Docker+Bash project to help me catalog a collection of short videos.
 It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
+## Usage
+
+All of the following assume you are in the root project directory, where `docker-compose.yml` lives.
+All assume you have Docker running and an `.env` file with the proper values.
+
+Example `.env` file:
+```
+DATABASE_PATH=/app/data/snapz.db
+VIDEO_PATH=/path/to/videos
+VIDEO_SUCCESS_LOG=/app/data/video_success_log.txt
+```
+
+### snapz
+
+Generates screencaps in the `images` directory.
+
+`docker-compose run ffmpeg`
+
+### thumbz
+
+Generates screencap thumbnails in the `thumbs` directory.
+
+`docker-compose run --service-ports pagez`
+
+### loadz
+
+Loads video, image, and thumbnail data from filesystem sources into the database
+
+`docker-compose run loadz`
+
+### pagez
+
+Runs the web app database.
+
 ## To Do
 
 * **Data management**
   * General search system.
   * Add tags to people.
   * Clone RDB (SQLite) to NoSQL (DynamoBD) for backups.
+  * Filter out videos that already have images and thumbnails.
 * **Media management**
   * Use [Pillow](https://pillow.readthedocs.io/en/stable/) to auto-grab image dimensions.
   * Add height and width columns to Image and Thumb tables.
@@ -24,6 +59,10 @@ It's not to be fancy. The choice was Python or C#, and Python won the coin toss.
 
 
 ## Change Log
+
+**2022-05-29:** Field tested loading new data after many app changes, made corrections accordingly.
+Updated this file with usage instructions.
+Updated `loadz.py` to load video data.
 
 **2022-05-23:** Added Api app and created a few JSON endpoints.
 Need to find a better method than handcrafted JSON.

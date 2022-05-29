@@ -11,9 +11,10 @@ IFS=$(echo -en "\n\b")
 for v in $(ls $VIDEODIR/*); do
     FILENAME=$(echo "${v}" | sed "s|${VIDEODIR}/||g");
     BASE64_FILENAME=$(echo "${FILENAME}" | base64 -w 0);
-    echo "FILENAME: ${FILENAME}, BASE64_FILENAME: ${BASE64_FILENAME}";
 
     if [[ ! -d ${IMAGEDIR}/${BASE64_FILENAME} ]]; then
+
+        echo "FILENAME: ${FILENAME}, BASE64_FILENAME: ${BASE64_FILENAME}";
 
         mkdir -p ${IMAGEDIR}/${BASE64_FILENAME};
 

@@ -2,13 +2,17 @@ version: "3"
 
 services:
   ffmpeg:
-    command: /app/bin/snapz.sh
+    entrypoint: /app/bin/snapz.sh
     env_file: ./.env
     image: linuxserver/ffmpeg
     volumes:
       - type: bind
         source: ./
         target: /app
+      - type: bind
+        source: $VIDEO_PATH
+        target: /app/videos
+        read_only: true
     working_dir: /app
 
   imagemagick:
@@ -35,4 +39,12 @@ services:
       - type: bind
         source: ./
         target: /app
+      - type: bind
+        source: $VIDEO_PATH
+        target: /app/videos
+        read_only: true
     working_dir: /app
+
+  loadz:
+    extends: pagez
+    command: /app/bin/loadz.sh
