@@ -27,7 +27,7 @@ Generates screencaps in the `images` directory.
 
 Generates screencap thumbnails in the `thumbs` directory.
 
-`docker-compose run --service-ports pagez`
+`docker-compose run imagemagick`
 
 ### loadz
 
@@ -38,6 +38,8 @@ Loads video, image, and thumbnail data from filesystem sources into the database
 ### pagez
 
 Runs the web app database.
+
+`docker-compose run --service-ports pagez`
 
 ## To Do
 

@@ -41,22 +41,18 @@ class Command(BaseCommand):
                 continue
 
             parts = filename.split(os.path.sep)
-            print(parts)
             base64_video = parts[-2]
             filename = parts[-1]
 
             try:
                 video_record = models.Video.objects.get(base64_filename=base64_video)
             except:
-                print(base64_video, filename)
                 continue
 
             parameters = {
                 "video": video_record,
                 "filename": filename,
             }
-
-            print(parameters)
 
             if is_thumb:
                 image_file_name = filename.replace("th_", "")
