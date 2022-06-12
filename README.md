@@ -62,6 +62,8 @@ Runs the web app database.
 
 ## Change Log
 
+**2022-06-11:** Correcting errors in usage section of README.
+
 **2022-05-29:** Field tested loading new data after many app changes, made corrections accordingly.
 Updated this file with usage instructions.
 Updated `loadz.py` to load video data.
