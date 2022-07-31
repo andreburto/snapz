@@ -21,6 +21,10 @@
 <li><a href="/videos/person/{{ p.id }}/">{{ p.last_name }}, {{ p.first_name }}</a></li>
 {% endfor %}
 </ul>
+{% if video_description %}
+<h3>Description</h3>
+<p>{{ video_description }}</p>
+{% endif %}
 {% if tags_for_video %}
 <h3>Tags:</h3>
 <ul>

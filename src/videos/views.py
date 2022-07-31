@@ -40,6 +40,7 @@ def video(request, id):
         {
             'video_id': select_video.id,
             'video_title': select_video.title,
+            'video_description': select_video.description,
             'video_filename': select_video.filename,
             'base64_filename': select_video.base64_filename,
             'image_and_thumb_list': image_and_thumb_list,
@@ -63,8 +64,6 @@ def person(request, id):
     videos_with_person = models.Video.objects.filter(id__in=video_id_by_person).order_by(Lower("title"))
     links_for_people = list(models.LinkPeople.objects.filter(person=p))
 
-    print(links_for_people)
-
     if getattr(p, 'thumb', None):
         thumb_url = f"/static/{p.thumb.video.base64_filename}/{p.thumb.filename}"
     else:
@@ -86,8 +85,6 @@ def video_by_tag(request, slug):
     tag = tag_models.Tag.objects.filter(slug=slug).first()
     videos_with_tag = models.Video.objects.filter(
         id__in=models.VideoTag.objects.filter(tag=tag).values_list("video__id")).order_by("title")
-
-    print(videos_with_tag)
 
     return HttpResponse(render_to_string(
         "videos/videos_by_tag.html",
