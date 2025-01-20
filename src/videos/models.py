@@ -31,6 +31,7 @@ class Video(linkz_models.DescriptionMixin):
 class ImageModelMixin(models.Model):
     filename = models.CharField(max_length=255)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    description = models.TextField(max_length=1024, blank=True, null=True)
 
     class Meta:
         abstract = True
@@ -138,3 +139,29 @@ class VideoTag(models.Model):
             models.Index(fields=['tag', 'video', ]),
         ]
         ordering = ['video', 'tag', ]
+
+
+class ImageTag(models.Model):
+    tag = models.ForeignKey(tags_models.Tag, on_delete=models.DO_NOTHING)
+    image = models.ForeignKey(Image, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['tag', ]),
+            models.Index(fields=['image', ]),
+            models.Index(fields=['tag', 'image', ]),
+        ]
+        ordering = ['image', 'tag', ]
+
+
+class ThumbTag(models.Model):
+    tag = models.ForeignKey(tags_models.Tag, on_delete=models.DO_NOTHING)
+    thumb = models.ForeignKey(Thumb, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['tag', ]),
+            models.Index(fields=['thumb', ]),
+            models.Index(fields=['tag', 'thumb', ]),
+        ]
+        ordering = ['thumb', 'tag', ]
