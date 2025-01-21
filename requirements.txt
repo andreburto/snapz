@@ -1,1 +1,4 @@
+boto3==1.36.2
 Django==4.0.4
+openai==0.28.0
+requests==2.31.0

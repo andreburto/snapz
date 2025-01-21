@@ -62,6 +62,10 @@ Runs the web app database.
 
 ## Change Log
 
+**2025-01-20:** Started working on basic integration with [OpenAI](https://www.openai.com/) to help describe screenshots.
+Added the `terraform` directory that adds the S3 bucket to make it easier to hand images to ChatGPT.
+The description code works, but there is a bug where some images are not found in the STATIC_ROOT directory.
+
 **2022-07-30:** Added description to video page.
 
 **2022-06-11:** Correcting errors in usage section of README.
