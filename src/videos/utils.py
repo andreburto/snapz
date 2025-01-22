@@ -56,7 +56,6 @@ def generate_description(image_path):
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
     client_s3.delete_object(Bucket=bucket_name, Key=object_name)
     json_response = response.json().get("choices")[0].get("message").get("content")
-    print(json_response)
     openai_response_json = json.loads(json_response.replace("```", "")[4:].strip())
 
     if "description" not in openai_response_json:

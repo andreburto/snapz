@@ -65,29 +65,33 @@ class ShowThumbnailAdmin(admin.ModelAdmin):
         base_tag_model = models.ImageTag if base_model == "image" else models.ThumbTag
         base_img_model = models.Image if base_model == "image" else models.Thumb
         instance = self.model.objects.get(id=id)
-        thumbnail_file = f"{settings.STATIC_ROOT}/{instance.video.base64_filename}/{self._get_thumbnail(instance)}"
+        thumbnail_file = ""
+        for path in settings.STATICFILES_DIRS:
+            test_path = f"{path}/{instance.video.base64_filename}/{self._get_thumbnail(instance)}"
+            if os.path.exists(test_path):
+                thumbnail_file = test_path
 
         if not os.path.exists(thumbnail_file):
             messages.error(request, f"Thumbnail file {thumbnail_file} does not exist.")
             return HttpResponseRedirect(f"/admin/videos/{base_model}/{id}/change/")
 
-        description = utils.generate_description(thumbnail_file)
+        try:
+            description = utils.generate_description(thumbnail_file)
 
-        instance.description = description["description"]
-        instance.save()
+            instance.description = description["description"]
+            instance.save()
 
-        for tag in description["tags"]:
-            print(f"Tag: {tag}")
+            for tag in description["tags"]:
+                tags_found = tags_models.Tag.objects.filter(slug=tag.lower().replace(" ", "-"))
 
-            tags_found = tags_models.Tag.objects.filter(slug=tag.lower().replace(" ", "-"))
-            print(f"Tags found: {tags_found}")
-            if tags_found:
-                obj = tags_found[0]
-            else:
-                obj = tags_models.Tag.objects.create(text=tag)
-            print(f"Tag: {tag}, {obj}, base_model: {base_model}, instance: {instance}")
-            tag_img_obj = base_tag_model(**{"tag": obj, base_model: instance})
-            tag_img_obj.save()
+                if tags_found:
+                    obj = tags_found[0]
+                else:
+                    obj = tags_models.Tag.objects.create(text=tag)
+                base_tag_model.objects.update_or_create(**{"tag": obj, base_model: instance})
+
+        except Exception as e:
+            messages.error(request, f"Error generating description: {e}")
 
         return HttpResponseRedirect(f"/admin/videos/{base_model}/{id}/change/")
 

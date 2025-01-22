@@ -62,6 +62,9 @@ Runs the web app database.
 
 ## Change Log
 
+**2025-01-21:** Fixed a bug where thumbnail files weren't being found.
+Added exception handling to the description code in case the OpenAI API request fails.
+
 **2025-01-20:** Started working on basic integration with [OpenAI](https://www.openai.com/) to help describe screenshots.
 Added the `terraform` directory that adds the S3 bucket to make it easier to hand images to ChatGPT.
 The description code works, but there is a bug where some images are not found in the STATIC_ROOT directory.
