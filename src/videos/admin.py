@@ -61,26 +61,30 @@ class ShowThumbnailAdmin(admin.ModelAdmin):
         return instance.filename.replace("th_", "")
 
     def generate_description(self, request, id):
+        """Use OpenAI to generate a description of the image."""
         base_model = self.model.__name__.lower()
         base_tag_model = models.ImageTag if base_model == "image" else models.ThumbTag
-        base_img_model = models.Image if base_model == "image" else models.Thumb
         instance = self.model.objects.get(id=id)
         thumbnail_file = ""
-        for path in settings.STATICFILES_DIRS:
-            test_path = f"{path}/{instance.video.base64_filename}/{self._get_thumbnail(instance)}"
-            if os.path.exists(test_path):
-                thumbnail_file = test_path
 
+        # Find the thumbnail file which is in the static files directory list.
+        for path in settings.STATICFILES_DIRS:
+            thumbnail_file = f"{path}/{instance.video.base64_filename}/{self._get_thumbnail(instance)}"
+            if os.path.exists(thumbnail_file):
+                break
+
+        # If the thumbnail file does not exist, then display an error message.
         if not os.path.exists(thumbnail_file):
             messages.error(request, f"Thumbnail file {thumbnail_file} does not exist.")
             return HttpResponseRedirect(f"/admin/videos/{base_model}/{id}/change/")
 
         try:
+            # Generate the description and save it to the record.
             description = utils.generate_description(thumbnail_file)
-
             instance.description = description["description"]
             instance.save()
 
+            # Add the tags to the desired table, either image or thumbnail tag.
             for tag in description["tags"]:
                 tags_found = tags_models.Tag.objects.filter(slug=tag.lower().replace(" ", "-"))
 
@@ -93,6 +97,7 @@ class ShowThumbnailAdmin(admin.ModelAdmin):
         except Exception as e:
             messages.error(request, f"Error generating description: {e}")
 
+        # Return to the record edit page.
         return HttpResponseRedirect(f"/admin/videos/{base_model}/{id}/change/")
 
     def show_thumbnail(self, instance):
@@ -103,6 +108,7 @@ class ShowThumbnailAdmin(admin.ModelAdmin):
             instance.video.base64_filename, image_file, thumbnail_file, instance.video.title)
 
     def show_description(self, instance):
+        """Show the description or a link to generate the description."""
         if instance.description:
             return instance.description
         else:

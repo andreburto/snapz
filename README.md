@@ -46,7 +46,7 @@ Runs the web app database.
 * **Data management**
   * General search system.
   * Add tags to people.
-  * Clone RDB (SQLite) to NoSQL (DynamoBD) for backups.
+  * Clone RDB (SQLite) to NoSQL (MongoDB) for backups.
   * Filter out videos that already have images and thumbnails.
 * **Media management**
   * Use [Pillow](https://pillow.readthedocs.io/en/stable/) to auto-grab image dimensions.
@@ -58,6 +58,8 @@ Runs the web app database.
 * **Infrastructure**
   * Add linter and tests.
   * Startup scripts for Windows and Mac.
+* **Documentation**
+  * Add more information about the `.env` file.
 
 
 ## Change Log

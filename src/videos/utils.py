@@ -15,6 +15,11 @@ Present this information in JSON format using description and tag as elements."
 
 
 def generate_description(image_path):
+    """
+    Upload an image to S3 and use OpenAI to generate a description of the image. This connects to OpenAI using a basic
+    request. It will delete the image from S3 after the description is generated.
+    """
+
     # Make file name
     bucket_name = os.getenv("BUCKET_NAME")
     object_name = f"{datetime.now().strftime('%Y%m%d%H%I%S')}.png"
@@ -55,6 +60,10 @@ def generate_description(image_path):
 
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
     client_s3.delete_object(Bucket=bucket_name, Key=object_name)
+
+    # TODO: Use real logging.
+    print(f"Response: {response.text}")
+
     json_response = response.json().get("choices")[0].get("message").get("content")
     openai_response_json = json.loads(json_response.replace("```", "")[4:].strip())
 
